@@ -45,6 +45,9 @@ int main() {
             case 4: 
                 atualizarLivroPorId(&head);
                 break;
+            
+            case 5:
+                removerLivroPorId(&head);
 
             default:
                 printf("\nOpcao invalida! Por favor, digite novamente\n");

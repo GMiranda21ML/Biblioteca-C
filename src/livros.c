@@ -13,32 +13,30 @@ void cadastrarLivro(Livro **head, char titulo[100], char autor[100], int quantid
     
     if (*head == NULL) {
         novoLivro->id = 0;
-        novoLivro->next = *head;
         *head = novoLivro;
+
     } else {
         Livro *temp = *head;
-        int id;
-        while (temp->next != NULL) {
-            if (temp->next->next == NULL) {
-                novoLivro->id = temp->id + 1;
+        int maxId = -1;
+        while (temp != NULL) {
+            if (temp->id > maxId) {
+                maxId = temp->id;
             }
-
-            temp = temp->next;        
-        
+            temp = temp->next;
         }
-        
-        if (novoLivro->id == 0) {
-            novoLivro->id = 1;
-        } else {
-            novoLivro->id++;
-        }
+        novoLivro->id = maxId + 1;
 
-        novoLivro->next = temp->next;
+        temp = *head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
         temp->next = novoLivro;
+    
     }
 
     printf("\nLivro (%s) cadastrado com sucesso!\n", novoLivro->titulo);
 }
+
 
 void listarLivros(Livro **head) {
     if (*head == NULL) {
@@ -77,35 +75,72 @@ void exibirLivroPorNome(Livro **head) {
 void atualizarLivroPorId(Livro **head) {
     if (*head == NULL) {
         printf("\nLista Vazia\n");
+    } else {
+        int idBusca;
+        printf("Digite o ID do livro que deseja atualizar: ");
+        scanf("%d", &idBusca);
+    
+        Livro *temp = *head;
+        while (temp != NULL) {
+            if (temp->id == idBusca) {
+                printf("\nLivro encontrado. Dados atuais:\n");
+                printf("Titulo: %s\nAutor: %s\nQuantidade: %d\n", temp->titulo, temp->autor, temp->quantidade);
+    
+                printf("\nDigite o novo titulo: ");
+                scanf(" %[^\n]", temp->titulo);
+    
+                printf("Digite o novo autor: ");
+                scanf(" %[^\n]", temp->autor);
+    
+                printf("Digite a nova quantidade: ");
+                scanf("%d", &temp->quantidade);
+    
+                printf("\nLivro atualizado com sucesso!\n");
+                break;
+            }
+            temp = temp->next;
+        }
+    
+        if (temp == NULL) {
+            printf("\nLivro com ID %d não encontrado.\n", idBusca);
+        }
+
+    }
+
+}
+
+void removerLivroPorId(Livro **head) {
+    if (*head == NULL) {
+        printf("\nLista Vazia\n");
         return;
     }
 
     int idBusca;
-    printf("Digite o ID do livro que deseja atualizar: ");
+    printf("Digite o ID do livro que deseja remover: ");
     scanf("%d", &idBusca);
 
     Livro *temp = *head;
-    while (temp != NULL) {
-        if (temp->id == idBusca) {
-            printf("\nLivro encontrado. Dados atuais:\n");
-            printf("Titulo: %s\nAutor: %s\nQuantidade: %d\n", temp->titulo, temp->autor, temp->quantidade);
+    Livro *anterior = NULL;
 
-            printf("\nDigite o novo titulo: ");
-            scanf(" %[^\n]", temp->titulo);
-
-            printf("Digite o novo autor: ");
-            scanf(" %[^\n]", temp->autor);
-
-            printf("Digite a nova quantidade: ");
-            scanf("%d", &temp->quantidade);
-
-            printf("\nLivro atualizado com sucesso!\n");
-            break;
+    if (temp != NULL && temp->id == idBusca) {
+        *head = temp->next;
+        printf("\nLivro '%s' removido com sucesso!\n", temp->titulo);
+        free(temp);
+    } else {
+        while (temp != NULL && temp->id != idBusca) {
+            anterior = temp;
+            temp = temp->next;
         }
-        temp = temp->next;
+    
+        if (temp == NULL) {
+            printf("\nLivro com ID %d não encontrado.\n", idBusca);
+            return;
+        }
+    
+        anterior->next = temp->next;
+        printf("\nLivro '%s' removido com sucesso!\n", temp->titulo);
+        free(temp);
     }
 
-    if (temp == NULL) {
-        printf("\nLivro com ID %d não encontrado.\n", idBusca);
-    }
 }
+

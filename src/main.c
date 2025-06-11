@@ -1,7 +1,8 @@
 #include <stdio.h>
+#include "titulos.h"
 
 int main() {
-    printf("Comecando projeto");
+    bemVindo();
 
     return 0;
 }

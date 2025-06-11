@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 #include "livros.h"
 
 void cadastrarLivro(Livro **head, char titulo[100], char autor[100], int quantidade) {
@@ -40,7 +39,7 @@ void cadastrarLivro(Livro **head, char titulo[100], char autor[100], int quantid
 
 void listarLivros(Livro **head) {
     if (*head == NULL) {
-        printf("\nLista Vazia\n");
+        printf("\nEstoque Vazio\n");
     } else {
         Livro *temp = *head;
         while (temp != NULL) {
@@ -52,7 +51,7 @@ void listarLivros(Livro **head) {
 
 void exibirLivroPorNome(Livro **head) {
     if (*head == NULL) {
-        printf("\nLista Vazia\n");
+        printf("\nEstoque Vazio\n");
     } else {
         char tituloBusca[100];
         printf("Digite o nome do livro: ");
@@ -74,7 +73,7 @@ void exibirLivroPorNome(Livro **head) {
 
 void atualizarLivroPorId(Livro **head) {
     if (*head == NULL) {
-        printf("\nLista Vazia\n");
+        printf("\nEstoque Vazio\n");
     } else {
         int idBusca;
         printf("Digite o ID do livro que deseja atualizar: ");
@@ -111,7 +110,7 @@ void atualizarLivroPorId(Livro **head) {
 
 void removerLivroPorId(Livro **head) {
     if (*head == NULL) {
-        printf("\nLista Vazia\n");
+        printf("\nEstoque Vazio\n");
         return;
     }
 
@@ -146,8 +145,7 @@ void removerLivroPorId(Livro **head) {
 
 void emprestarLivroPorId(Livro **head) {
     if (*head == NULL) {
-        printf("\nLista Vazia\n");
-        return;
+        printf("\nEstoque Vazio\n");
     }
 
     int idBusca;
@@ -168,7 +166,35 @@ void emprestarLivroPorId(Livro **head) {
         temp = temp->next;
     }
 
-    printf("\nLivro com ID %d não encontrado.\n", idBusca);
+    if (temp == NULL) {
+        printf("\nLivro com ID %d não encontrado.\n", idBusca);
+    }
+
 }
+
+void devolverLivroPorId(Livro **head) {
+    if (*head == NULL) {
+        printf("\nEstoque Vazio\n");
+    }
+
+    int idBusca;
+    printf("Digite o ID do livro que deseja devolver: ");
+    scanf("%d", &idBusca);
+
+    Livro *temp = *head;
+    while (temp != NULL) {
+        if (temp->id == idBusca) {
+            temp->quantidade++;
+            printf("\nLivro '%s' devolvido com sucesso! Quantidade atual: %d\n", temp->titulo, temp->quantidade);
+            return;
+        }
+        temp = temp->next;
+    }
+
+    if (temp == NULL) {
+        printf("\nLivro com ID %d não encontrado.\n", idBusca);
+    }
+}
+
 
 

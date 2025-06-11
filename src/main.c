@@ -3,17 +3,23 @@
 #include "menu.h"
 #include "livros.h"
 
+#ifdef _WIN32
+    #define LIMPAR_TELA "cls"
+#else
+    #define LIMPAR_TELA "clear"
+#endif
+
 int main() {
     Livro *head = NULL;
 
     while (1) {
-        system("clear");
+        system(LIMPAR_TELA);
         bemVindo();
         opcoesMenu();
         int op;
         scanf("%d", &op);
 
-        system("clear");
+        system(LIMPAR_TELA);
         switch (op)
         {
             case 0:
@@ -59,6 +65,11 @@ int main() {
             case 6:
                 emprestimo();
                 emprestarLivroPorId(&head);
+                break;
+            
+            case 7:
+                devolucao();
+                devolverLivroPorId(&head);
                 break;
 
             default:

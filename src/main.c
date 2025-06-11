@@ -21,21 +21,29 @@ int main() {
                 break;
 
             case 1:
-                char livro[100];
+                char titulo[100];
                 char autor[100];
                 int quantidade;
                 printf("Digite o nome do livro: ");
-                scanf(" %[^\n]", livro);
+                scanf(" %[^\n]", titulo);
                 printf("Digite o nome do autor: ");
                 scanf(" %[^\n]", autor);
                 printf("Digite a quantidade de livros: ");
                 scanf("%d", &quantidade);
 
-                cadastrarLivro(&head, livro, autor, quantidade);
+                cadastrarLivro(&head, titulo, autor, quantidade);
                 break;
             
             case 2:
                 listarLivros(&head);
+                break;
+            
+            case 3:
+                exibirLivroPorNome(&head);
+                break;
+            
+            case 4: 
+                atualizarLivroPorId(&head);
                 break;
 
             default:

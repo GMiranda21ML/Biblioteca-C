@@ -11,5 +11,7 @@ typedef struct Livro {
 
 void cadastrarLivro(Livro **head, char titulo[100], char autor[100], int quantidade);
 void listarLivros(Livro **head);
+void exibirLivroPorNome(Livro **head);
+void atualizarLivroPorId(Livro **head);
 
 #endif

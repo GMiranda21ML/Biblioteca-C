@@ -144,3 +144,31 @@ void removerLivroPorId(Livro **head) {
 
 }
 
+void emprestarLivroPorId(Livro **head) {
+    if (*head == NULL) {
+        printf("\nLista Vazia\n");
+        return;
+    }
+
+    int idBusca;
+    printf("Digite o ID do livro que deseja emprestar: ");
+    scanf("%d", &idBusca);
+
+    Livro *temp = *head;
+    while (temp != NULL) {
+        if (temp->id == idBusca) {
+            if (temp->quantidade > 0) {
+                temp->quantidade--;
+                printf("\nLivro '%s' emprestado com sucesso! Quantidade restante: %d\n", temp->titulo, temp->quantidade);
+            } else {
+                printf("\nLivro '%s' está indisponível para empréstimo (quantidade esgotada).\n", temp->titulo);
+            }
+            return;
+        }
+        temp = temp->next;
+    }
+
+    printf("\nLivro com ID %d não encontrado.\n", idBusca);
+}
+
+

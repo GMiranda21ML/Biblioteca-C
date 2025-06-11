@@ -13,6 +13,7 @@ int main() {
         int op;
         scanf("%d", &op);
 
+        system("clear");
         switch (op)
         {
             case 0:
@@ -21,6 +22,7 @@ int main() {
                 break;
 
             case 1:
+                cadastroDeLivro();
                 char titulo[100];
                 char autor[100];
                 int quantidade;
@@ -35,19 +37,29 @@ int main() {
                 break;
             
             case 2:
+                listar();
                 listarLivros(&head);
                 break;
             
             case 3:
+                buscar();
                 exibirLivroPorNome(&head);
                 break;
             
             case 4: 
+                atualizar();
                 atualizarLivroPorId(&head);
                 break;
             
             case 5:
+                remover();
                 removerLivroPorId(&head);
+                break;
+
+            case 6:
+                emprestimo();
+                emprestarLivroPorId(&head);
+                break;
 
             default:
                 printf("\nOpcao invalida! Por favor, digite novamente\n");

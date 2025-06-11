@@ -14,5 +14,6 @@ void listarLivros(Livro **head);
 void exibirLivroPorNome(Livro **head);
 void atualizarLivroPorId(Livro **head);
 void removerLivroPorId(Livro **head);
+void emprestarLivroPorId(Livro **head);
 
 #endif
